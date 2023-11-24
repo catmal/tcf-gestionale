@@ -1,0 +1,57 @@
+<% if action_name != "show" %>
+  <div id="<%= dom_id group %>">
+    <tr class="bg-blue">
+      <td scope="row" class="px-6 py-4 font-medium">
+          <%= group.code %>
+      </td>
+      <td scope="row" class="px-6 py-4 font-medium">
+          <%= group.type %>
+      </td>
+        <td scope="row" class="px-6 py-4 font-medium">
+      </td>
+      <td scope="row" class="px-6 py-4 font-medium">
+        <%= link_to "Mostra", item_path(group.id), class: 'bg-gray p-2 rounded' %>
+      </td>
+    </tr>
+  </div>
+<% else %>
+  <div class="bg-gray-200 p-2 rounded my-4">
+    <p class="font-bold">Gruppo</p>
+    <%= group.code %>
+  </div>
+ <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+  <table class="w-full text-sm text-left rounded">
+    <thead class="text-xs text-light uppercase bg-gray-dark ">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          Codice
+        </th>  
+        <th scope="col" class="px-6 py-3">
+          Nome
+        </th>  
+         <th scope="col" class="px-6 py-3">
+        </th>  
+      </tr>
+    </thead>
+    <tbody>
+      <% if group.children.count > 0 %>
+        <% group.children.each do |child| %>
+          <tr class="bg-blue text-light">
+            <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                <%= child.code %>
+            </td>
+            <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                <%= child.name %>
+            </td>
+              
+            <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+              <%= link_to "Mostra", item_path(child.id), class: 'bg-gray hover:bg-gray-dark p-2 rounded' %>
+            </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+<% end %>

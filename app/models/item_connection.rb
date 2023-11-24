@@ -1,0 +1,2 @@
+class ItemConnection < ApplicationRecord
+end

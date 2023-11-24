@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <div class="container max-w-full">
+      <div class="flex">
+        <aside
+          data-sidebar-target="sidebarContainer"
+          data-expanded="0"
+          data-controller="sidebar"
+          class="sm:w-14 md:w-1/5 bg-gray-dark min-h-screen"
+        >
+          <div class="sticky top-0 px-2 w-full">
+            <div
+              data-action="click->sidebar#toggle"
+              data-sidebar-target="icon"
+              class="absolute left-4 top-4 cursor-pointer"
+            >
+              <i class="fa-solid fa-bars text-white text-2xl"></i>
+            </div>
+            <nav class="mt-4">
+              <div class="text-xl font-bold bg-gray p-2 rounded text-light">TCF</div>
+              <hr />
+              <%= render "layouts/menu" %>
+            </nav>
+          </div>
+        </aside>
+        <main class="sm:w-full ">
+          <div
+            aria-live="assertive"
+            class="
+              fixed
+              inset-0
+              flex
+              items-end
+              px-4
+              py-6
+              pointer-events-none
+              sm:p-6
+              sm:items-start
+              z-50
+            "
+          >
+            <div
+              id="notifications"
+              class="w-full flex flex-col items-center space-y-4 sm:items-end"
+            >
+              <% if notice %>
+                <%= render "layouts/notice" %>
+              <% end %>
+              <% if alert %>
+                <%= render "layouts/alert" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="bg-gray-100 h-full">
+            <%= turbo_frame_tag "modal" %>
+            <%= yield %>
+          </div>
+        </main>
+       
+      </div>
+    </div>
+  </body>
+</html>
+

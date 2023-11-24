@@ -1,0 +1,2 @@
+module BillOfMaterialLinesHelper
+end

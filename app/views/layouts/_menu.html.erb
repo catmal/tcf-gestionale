@@ -1,0 +1,15 @@
+<ul data-sidebar-menu="menu" data-active="Suggestions" class="flex flex-col overflow-hidden space-y-2">  
+  <% Menu::ITEMS.each do |item| %>
+    <li>
+      <a
+        href="<%= item[:link]%>"
+        class="flex items-center text-lg font-bold p-2 text-black rounded-lg hover:bg-gray-800 group"
+      >
+        <div class="" >
+          <i class="<%= 'text-red-400' if params[:controller] == item[:controller] %> <%= item[:icon]%> text-2xl group-hover:text-red-400"></i>
+          <span data-sidebar-target="link"  class=<%= 'text-white' if params[:controller] == item[:controller] %> group-hover:text-white ml-3 sm:sr-only md:not-sr-only"><%= item[:name]%></span>
+        </div>
+      </a>
+    </li>
+  <% end %>
+</ul>

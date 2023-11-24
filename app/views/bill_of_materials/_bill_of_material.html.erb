@@ -1,0 +1,39 @@
+<div id="<%= dom_id bill_of_material %>" class="p-4">
+  <h1 class="font-bold text-4xl text-gray-dark">Distinta <%= @bill_of_material.number %></h1>
+  <div class="mt-4 bg-gray-dark p-4 rounded">
+    <h2 class="font-bold mb-4 text-light">Esporta per MonAmi</h2>
+    <%= link_to "Componenti", items_path(bill_of_material: bill_of_material, format: 'csv'), class: 'px-4 bg-green text-light p-2 rounded' %>
+    <div>
+      <h2 class="font-bold my-4 text-gray">Gruppi</h2>
+      <% bill_of_material.groups.uniq.each  do |group| %>
+        <%= link_to "#{group.code}", groups_csv_path(bill_of_material: bill_of_material, group: group.code, format: 'csv'), class: 'px-4 bg-green text-light p-2 rounded' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex gap-2 text-light mt-4">
+    <div class="px-4 bg-gray p-2 rounded">
+      <strong class="block font-bold mb-1">Data</strong>
+      <%= bill_of_material.date %>
+    </div>
+    <div class="px-4 bg-gray p-2 rounded">
+      <strong class="block font-bold mb-1">Numero</strong>
+      <%= bill_of_material.number %>
+    </div>
+     <div class="px-4 bg-gray p-2 rounded">
+      <strong class="block font-bold mb-1">Gruppi #</strong>
+      <%= number_with_delimiter(bill_of_material.groups.count, delimiter: ".") %>
+    </div>
+    <div class="px-4 bg-gray p-2 rounded">
+      <strong class="block font-bold mb-1">Componenti #</strong>
+      <%= number_with_delimiter(bill_of_material.components.count, delimiter: ".") %>
+    </div>
+    <div class="px-4 bg-gray p-2 rounded">
+      <strong class="block font-bold mb-1">Quantita' #</strong>
+      <%= number_with_delimiter(bill_of_material.bill_of_material_lines.sum(&:quantity).to_i, delimiter: ".") %>
+    </div>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "Mostra", bill_of_material, class: "rounded-lg  p-2 bg-gray inline-block font-medium h-10 m-4" %>
+s    <hr class="mt-6">
+  <% end %>
+</div>

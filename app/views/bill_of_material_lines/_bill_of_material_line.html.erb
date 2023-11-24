@@ -1,0 +1,22 @@
+<div id="<%= dom_id line %>">
+  <tr class="bg-blue border-white text-light">
+    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+        <%= line.group.code %>
+    </td>
+    <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
+        <%= line.component.code %>
+    </td>
+    <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
+        <%= line.component.name %>
+    </td>
+    <td class="px-6 py-4">
+      <%= number_with_delimiter(line.quantity.to_i, delimiter: ".")  %>
+    </td>
+  </tr>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this bill of material line", bill_of_material_line, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this bill of material line", edit_bill_of_material_line_path(bill_of_material_line), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

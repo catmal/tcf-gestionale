@@ -1,0 +1,31 @@
+  <%= render @bill_of_material %>
+    <div class="m-4 overflow-x-auto shadow-md rounded-lg bg-blue">
+      <table class="w-full text-sm text-left  text-light ">
+        <thead class="text-xs text-light bg-gray-dark uppercase  ">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                    Gruppo
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Codice
+                </th>
+                 <th scope="col" class="px-6 py-3">
+                    Nome
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Quantita'
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @bill_of_material.bill_of_material_lines.each do | line | %>
+            <%= render 'bill_of_material_lines/bill_of_material_line', line: %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="inline-block ">
+      <%= button_to "Distruggi", bill_of_material_path(@bill_of_material), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-red text-white font-medium" %>
+    </div>
+    <%= link_to "Indietro", bill_of_materials_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray inline-block font-medium" %>
+  </div>

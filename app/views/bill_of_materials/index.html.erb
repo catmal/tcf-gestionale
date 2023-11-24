@@ -1,0 +1,54 @@
+<div class="w-full h-min-screen p-4">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+     
+  <div id="bill_of_materials" class="min-w-full">
+    <div class="mx-auto  w-full">
+    <div class="flex justify-between items-center h-full mb-4">
+    <h1 class="font-bold text-4xl text-gray-dark">Distinte</h1>
+    <%= form_tag( import_bill_of_materials_path,  multipart: true, class: 'border-gray') do %>
+    <div class="flex">
+      <%= file_field_tag 'xml_file', class: "pt-1 block w-full text-sm text-gray-dark border rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
+      <%= submit_tag 'Importa', class: 'cursor-pointer ml-2 bg-green p-2 text-sm rounded text-light' %>
+   </div>
+    <% end %> 
+  </div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <% if @bill_of_materials.count.positive? %>
+    <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
+        <thead class="text-xs text-light uppercase bg-gray-dark dark:text-white">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Codice
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Quantita'
+                </th>
+                <th scope="col" class="px-6 py-3">
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-blue text-light">
+          <% @bill_of_materials.each do | bill | %>
+            <tr data-href="<%= bill_of_material_path(bill.id) %>" class="bg-blue-500 border-b border-blue-400">
+              <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                  <%= bill.date %>
+              </th>
+              <td class="px-6 py-4">
+                <%= bill.number %>
+              </td>
+               <td class="px-6 py-4">
+                <%= link_to "Mostra", bill_of_material_path(bill.id), class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>              
+              </td>
+            </tr>
+        </tbody>
+        <% end %>
+    </table>
+    <% else %>
+    <p class="p-2  text-xl">Non ci sono ancora distinte. Inizia ad importarne.</p>
+    <% end %>
+</div>
+  </div>
+</div>

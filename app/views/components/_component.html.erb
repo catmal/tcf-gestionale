@@ -1,0 +1,24 @@
+<% if action_name != "show" %>
+<div id="<%= dom_id component %>">
+  <tr class="bg-blue">
+    <td scope="row" class="px-6 py-4 font-medium">
+      <%= component.code %>
+    </td>
+    <td scope="row" class="px-6 py-4 font-medium">
+      <%= component.type %>
+    </td>
+     <td scope="row" class="px-6 py-4 font-medium">
+      <%= component.name %>
+    </td>
+      <td scope="row" class="px-6 py-4 font-medium">
+        <%= link_to "Mostra",  item_path(component.id), class: 'bg-gray p-2 rounded' %>
+    </td>
+  </tr>
+</div>
+<% else %>
+<h1 class="font-bold my-4"><%= component.name %></h1>
+<p class="font-bold my-2">Usato in gruppi:</p>
+<p>
+  <%= link_to "#{component.parents.first.code}",  item_path(component.parents.first.id), class: 'text-white bg-gray-600 p-2 rounded'  %>
+</p>
+<% end %>
