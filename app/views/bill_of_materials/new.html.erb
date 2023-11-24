@@ -1,15 +1,16 @@
 <div class="mx-auto w-full p-4">
 <h1 class="font-bold text-2xl mb-4">Importa Distinta</h1>
-<%= button_to "Salva", bill_of_materials_path(bill_of_material: @bill_of_material), class: "bg-green-400 p-2 rounded text-white my-2" %>
+<%= button_to "Salva", bill_of_materials_path(bill_of_material: @bill_of_material), class: "bg-green p-2 rounded text-light" %>
 <div class="flex gap-2 my-4">
 
 </div>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <h2 class="text-xl my-2 font-bold">Componenti</h2>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
     <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
-        <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+        <thead class="text-xs text-white uppercase bg-gray-dark text-light">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Codice
@@ -28,7 +29,7 @@
 
         <tbody>
           <% @bill_of_material_lines.each do | line | %>
-            <tr class="bg-blue-500 border-b border-blue-400">
+            <tr class="bg-blue text-light">
                <td class="px-6 py-4">
                 <%= line[:code] %>
               </td>
@@ -46,11 +47,13 @@
 
           
         </tbody>
-
+</div>
     </table>
     <h2 class="text-xl my-2 font-bold">Gruppi</h2>
-    <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
-        <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+    <table class="w-full text-sm text-left text-light">
+        <thead class="text-xs text-white uppercase bg-gray-dark dark:text-white">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Codice
@@ -62,7 +65,7 @@
 
         <tbody>
            <% session[:groups].each do | group | %>
-            <tr class="bg-blue-500 border-b border-blue-400">
+            <tr class="bg-blue text-light">
               
                <td class="px-6 py-4">
                 <%= group[:code] %>
@@ -73,6 +76,7 @@
           <% end %>
         </tbody>
     </table>
+    </div>
 </div>
 
   
