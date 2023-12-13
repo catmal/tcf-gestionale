@@ -2,36 +2,36 @@
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-
   <div class="flex justify-between items-center mb-4">
     <h1 class="font-bold text-gray-dark text-4xl">Articoli</h1>
   </div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-light rounded">
+      <thead class="text-xs text-light uppercase bg-gray-dark">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Codice
+          </th>  
+          <th scope="col" class="px-6 py-3">
+            Tipo
+          </th> 
+          <th scope="col" class="px-6 py-3">
+            Nome
+          </th>  
+            <th scope="col" class="px-6 py-3">
+            Creato
+          </th> 
+           <th scope="col" class="px-6 py-3">
+            Files
+          </th>  
+          <th scope="col" class="px-6 py-3">
+          </th>  
 
-   <table class="w-full text-sm text-left text-light rounded">
-    <thead class="text-xs text-light uppercase bg-gray-dark">
-      <tr>
-        <th scope="col" class="px-6 py-3">
-          Codice
-        </th>  
-         <th scope="col" class="px-6 py-3">
-          Tipo
-        </th> 
-        <th scope="col" class="px-6 py-3">
-          Nome
-        </th>  
-         <th scope="col" class="px-6 py-3">
-          Azioni
-        </th>  
-      </tr>
-    </thead>
-    <tbody>
-      <%= render @items %>
-    </tbody>
-  </table>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @items %>
+      </tbody>
+    </table>
   </div>
-
-  
-
-
 </div>

@@ -1,0 +1,20 @@
+  <tr id="<%= line[:code] %>" is="turbo-frame" class="bg-blue text-light">
+    <th  class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+      <%= line.item.parents.first.code %>
+    </th>
+    <th  class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+      <%= line.item.code %>
+    </th>
+    <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+      <%= line.item.name %>
+    </th>
+    <td class="px-6 py-4">
+      <%= line.quantity.to_i %>
+    </td>
+    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+      <% if line.item.pdf_url%>
+        <%= link_to "PDF", "#{line.item.pdf_url}", class: "bg-gray-dark text-light p-1 rounded" %>
+        <%= link_to "DXF", "#{line.item.dxf_url}", class: "bg-gray-dark text-light p-1 rounded" %>
+      <% end %>
+    </td>
+  </tr>

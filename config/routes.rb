@@ -1,13 +1,21 @@
 Rails.application.routes.draw do
+  resources :supplier_order_lines
+  resources :supplier_orders
+  resources :suppliers
   resources :items
   resources :bill_of_material_lines
   resources :bill_of_materials do
     post :import, on: :collection
     get 'components'
     get 'groups'
+    get 'import_purchase_order'
+    get 'purchase_order_groups'
   end
   get 'components_csv', action: :components, controller: 'bill_of_materials'
   get 'groups_csv', action: :groups, controller: 'bill_of_materials'
+  get 'purchase_order_groups_csv', action: :purchase_order_groups, controller: 'bill_of_materials'
+  get 'add_component_to_supplier_order', action: :add_component_to_supplier_order, controller: 'supplier_orders'
+  get 'send_supplier_order_email', action: :send_email, controller: 'supplier_orders'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

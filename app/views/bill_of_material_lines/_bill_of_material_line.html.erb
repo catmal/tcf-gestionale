@@ -7,10 +7,16 @@
         <%= line.component.code %>
     </td>
     <td scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
-        <%= line.component.name %>
+        <%= link_to line.component.name, item_path(line.component.id) %>
     </td>
-    <td class="px-6 py-4">
+    <td class="px-6 py-4 text-center">
       <%= number_with_delimiter(line.quantity.to_i, delimiter: ".")  %>
+    </td>
+    <td scope="row" class="px-6 py-4 font-medium ">
+      <% if line.component.pdf_url%>
+        <%= link_to "PDF", "#{line.component.pdf_url}", class: "btn-positive" %>
+        <%= link_to "DXF", "#{line.component.dxf_url}", class: "btn-positive" %>
+      <% end %>
     </td>
   </tr>
 

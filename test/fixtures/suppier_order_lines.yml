@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  supplier_order: one
+  component: one
+  quantity: one
+
+two:
+  supplier_order: two
+  component: two
+  quantity: two

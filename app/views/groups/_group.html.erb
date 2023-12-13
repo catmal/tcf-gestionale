@@ -7,6 +7,12 @@
       <td scope="row" class="px-6 py-4 font-medium">
           <%= group.type %>
       </td>
+       <td scope="row" class="px-6 py-4 font-medium">
+         <%= group.name %>
+      </td>
+       <td scope="row" class="px-6 py-4 font-medium">
+      <%= group.created_at.strftime('%d-%m-%Y %H:%M') %>
+    </td>
         <td scope="row" class="px-6 py-4 font-medium">
       </td>
       <td scope="row" class="px-6 py-4 font-medium">
@@ -17,7 +23,8 @@
 <% else %>
   <div class="bg-gray-200 p-2 rounded my-4">
     <p class="font-bold">Gruppo</p>
-    <%= group.code %>
+    <%= group.code %> | <%= group.name %>
+
   </div>
  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 

@@ -2,7 +2,6 @@
   <% if bill_of_material.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(bill_of_material.errors.count, "error") %> prohibited this bill_of_material from being saved:</h2>
-
       <ul>
         <% bill_of_material.errors.each do |error| %>
           <li><%= error.full_message %></li>

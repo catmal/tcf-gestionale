@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  supplier: one
+  date: 2023-11-26
+  bill_of_material: one
+  machine: MyString
+
+two:
+  number: MyString
+  supplier: two
+  date: 2023-11-26
+  bill_of_material: two
+  machine: MyString

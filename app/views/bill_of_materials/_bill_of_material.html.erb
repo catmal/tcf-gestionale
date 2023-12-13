@@ -1,33 +1,70 @@
 <div id="<%= dom_id bill_of_material %>" class="p-4">
+<div class="flex justify-between">
   <h1 class="font-bold text-4xl text-gray-dark">Distinta <%= @bill_of_material.number %></h1>
-  <div class="mt-4 bg-gray-dark p-4 rounded">
-    <h2 class="font-bold mb-4 text-light">Esporta per MonAmi</h2>
-    <%= link_to "Componenti", items_path(bill_of_material: bill_of_material, format: 'csv'), class: 'px-4 bg-green text-light p-2 rounded' %>
-    <div>
-      <h2 class="font-bold my-4 text-gray">Gruppi</h2>
-      <% bill_of_material.groups.uniq.each  do |group| %>
-        <%= link_to "#{group.code}", groups_csv_path(bill_of_material: bill_of_material, group: group.code, format: 'csv'), class: 'px-4 bg-green text-light p-2 rounded' %>
-      <% end %>
+  <%= link_to "Nuovo ordine fornitore", new_supplier_order_path(bill_of_material: bill_of_material), class: 'btn-positive' %>
+</div>
+<% if  @supplier_orders.count.positive? %>
+  <div class="mt-4 bg-gray-dark text-light p-4 rounded">
+    <h2 class="font-bold mb-2">Ordini fornitori esistenti per quests distinta:</h2>
+    <div class="flex gap-2 justify-betwwen items-center">
+      <div>
+        <% @supplier_orders.each do | supplier_order | %>
+          <div class="btn-primary inline">
+            <%= link_to supplier_order.supplier.name, supplier_order_path(supplier_order) %>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <% if session[:supplier_order_lines]&.count&.positive? %>
+          <%= link_to "Continua ordine in corso", new_supplier_order_path(bill_of_material: bill_of_material), class: 'btn-positive' %>
+        <% end %>
+      </div>
     </div>
   </div>
+<% end %>
+  <div class="mt-4 bg-gray-dark p-4 rounded">
+    <h2 class="font-bold mb-4 text-light">Esporta per MonAmi</h2>
+    <div class="mb-4">
+      <%= link_to "Componenti", items_path(bill_of_material: bill_of_material, format: 'csv'), class: 'btn-positive' %>
+    </div>
+    <% bill_of_material.groups.uniq.each  do |group| %>
+      <%= link_to "#{group.code}", groups_csv_path(bill_of_material: bill_of_material, group: group.code, format: 'csv'), class: 'btn-positive' %>
+    <% end %>
+    <div class="mt-4">
+       <%= link_to "Gruppi", purchase_order_groups_csv_path(bill_of_material: bill_of_material, format: 'csv'), class: "btn-positive" %>
+    </div>
+  </div>
+  <div class="bg-gray-dark p-4 mt-4 rounded-lg">
+    <%= form_with(model: bill_of_material, class: "contents") do |form| %>
+      <%= form.label "Link ordine d'acquisto", class: "text-light font-bold" %>
+      <p class="text-light my-2">Inserisci il link dell'ordine d'acquisto. Clicca <strong>Salva</strong> per salvare il link. Clicca <strong>Importa Dati</strong> per associare nomi gruppi, pdf e dxt e salvarli nel gestionale.</p>
+      <%= form.text_field :purchase_order_url, class: "mb-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      <div class="flex gap-2">
+        <%= form.submit "Salva", class: "btn-positive py-2" %>
+        <% if bill_of_material.purchase_order_url.present? %>
+          <%= link_to "Importa dati", bill_of_material_import_purchase_order_path(bill_of_material.id), class: "btn-positive" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
   <div class="flex gap-2 text-light mt-4">
-    <div class="px-4 bg-gray p-2 rounded">
+    <div class="px-4 bg-gray-dark p-2 rounded">
       <strong class="block font-bold mb-1">Data</strong>
       <%= bill_of_material.date %>
     </div>
-    <div class="px-4 bg-gray p-2 rounded">
+    <div class="px-4 bg-gray-dark p-2 rounded">
       <strong class="block font-bold mb-1">Numero</strong>
       <%= bill_of_material.number %>
     </div>
-     <div class="px-4 bg-gray p-2 rounded">
+     <div class="px-4 bg-gray-dark p-2 rounded">
       <strong class="block font-bold mb-1">Gruppi #</strong>
-      <%= number_with_delimiter(bill_of_material.groups.count, delimiter: ".") %>
+      <%= number_with_delimiter(bill_of_material.groups.uniq.count, delimiter: ".") %>
     </div>
-    <div class="px-4 bg-gray p-2 rounded">
+    <div class="px-4 bg-gray-dark p-2 rounded">
       <strong class="block font-bold mb-1">Componenti #</strong>
       <%= number_with_delimiter(bill_of_material.components.count, delimiter: ".") %>
     </div>
-    <div class="px-4 bg-gray p-2 rounded">
+    <div class="px-4 bg-gray-dark p-2 rounded">
       <strong class="block font-bold mb-1">Quantita' #</strong>
       <%= number_with_delimiter(bill_of_material.bill_of_material_lines.sum(&:quantity).to_i, delimiter: ".") %>
     </div>

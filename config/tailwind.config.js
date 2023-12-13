@@ -14,11 +14,12 @@ module.exports = {
         DEFAULT: '#ffffff',
       },
       gray: {
-        DEFAULT: '#bbb5bd',
-        dark: '#525b76',
+        DEFAULT: '#385f71',
+        dark: '#2b4162',
       },
       green: {
         DEFAULT: '#99d17b',
+        dark: '#588b8b'
       },
       blue: {
         DEFAULT: '#00a7e1',

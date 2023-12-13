@@ -10,15 +10,35 @@
      <td scope="row" class="px-6 py-4 font-medium">
       <%= component.name %>
     </td>
-      <td scope="row" class="px-6 py-4 font-medium">
-        <%= link_to "Mostra",  item_path(component.id), class: 'bg-gray p-2 rounded' %>
+    <td scope="row" class="px-6 py-4 font-medium">
+      <%= component.created_at.strftime('%d-%m-%Y %H:%M') %>
+    </td>
+    <td scope="row" class="px-6 py-4 font-medium flex gap-2">
+      <% if component.pdf_url%>
+      <%= link_to "PDF", "#{component.pdf_url}", class: "btn-positive" %>
+      <%= link_to "DXF", "#{component.dxf_url}", class: "btn-positive" %>
+      <% end %>
+    </td>
+    
+    <td scope="row" class="px-6 py-4 font-medium">
+      <%= link_to "Mostra",  item_path(component.id), class: 'btn-primary' %>
     </td>
   </tr>
 </div>
 <% else %>
-<h1 class="font-bold my-4"><%= component.name %></h1>
-<p class="font-bold my-2">Usato in gruppi:</p>
-<p>
-  <%= link_to "#{component.parents.first.code}",  item_path(component.parents.first.id), class: 'text-white bg-gray-600 p-2 rounded'  %>
-</p>
+<div class="p-4">
+  <h1 class="font-bold text-2xl my-4"><%= component.name %> | <%= component.code %></h1>
+
+  <p class="font-bold my-2">Usato in gruppi:</p>
+  <p>
+    <%= link_to "#{component.parents.first.code}",  item_path(component.parents.first.id), class: 'text-light bg-gray p-2 rounded'%>
+  </p>
+  <div style="width: 100%; height: 100vh;" class="mt-4">
+    <object data="<%= component.pdf_url %>" type="application/pdf" width="100%" height="100%">
+      <embed src="<%= component.pdf_url %>" type="application/pdf" />
+    </object>
+  </div>
+</div>
+
+
 <% end %>

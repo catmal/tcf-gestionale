@@ -1,3 +1,4 @@
+
   <%= render @bill_of_material %>
     <div class="m-4 overflow-x-auto shadow-md rounded-lg bg-blue">
       <table class="w-full text-sm text-left  text-light ">
@@ -12,8 +13,11 @@
                  <th scope="col" class="px-6 py-3">
                     Nome
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3 text-center">
                     Quantita'
+                </th>
+                 <th scope="col" class="px-6 py-3 text-center">
+                    Files
                 </th>
             </tr>
         </thead>
@@ -24,8 +28,7 @@
         </tbody>
       </table>
     </div>
-    <div class="inline-block ">
+    <div class="inline-block p-4">
       <%= button_to "Distruggi", bill_of_material_path(@bill_of_material), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-red text-white font-medium" %>
     </div>
-    <%= link_to "Indietro", bill_of_materials_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray inline-block font-medium" %>
   </div>

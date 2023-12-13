@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_20_180031) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_26_191121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_180031) do
   create_table "bill_of_materials", force: :cascade do |t|
     t.date "date"
     t.string "number"
+    t.string "purchase_order_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,6 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_180031) do
     t.string "name"
     t.string "code"
     t.string "type"
+    t.string "pdf_url"
+    t.string "dxf_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -55,9 +58,42 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_180031) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
+  create_table "supplier_order_lines", force: :cascade do |t|
+    t.bigint "supplier_order_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_supplier_order_lines_on_item_id"
+    t.index ["supplier_order_id"], name: "index_supplier_order_lines_on_supplier_order_id"
+  end
+
+  create_table "supplier_orders", force: :cascade do |t|
+    t.string "number"
+    t.bigint "supplier_id", null: false
+    t.date "date"
+    t.bigint "bill_of_material_id", null: false
+    t.string "machine"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bill_of_material_id"], name: "index_supplier_orders_on_bill_of_material_id"
+    t.index ["supplier_id"], name: "index_supplier_orders_on_supplier_id"
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "bill_of_material_lines", "bill_of_materials"
   add_foreign_key "bill_of_material_lines", "items", column: "component_id"
   add_foreign_key "bill_of_material_lines", "items", column: "group_id"
   add_foreign_key "item_connections", "items", column: "child_id"
   add_foreign_key "item_connections", "items", column: "parent_id"
+  add_foreign_key "supplier_order_lines", "items"
+  add_foreign_key "supplier_order_lines", "supplier_orders"
+  add_foreign_key "supplier_orders", "bill_of_materials"
+  add_foreign_key "supplier_orders", "suppliers"
 end

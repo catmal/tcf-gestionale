@@ -1,0 +1,11 @@
+<tr id="<%= line[:code] %>" is="turbo-frame" class="bg-blue text-light">
+  <td  class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+      <%= line[:code] %>
+  </td>
+  <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+      <%= line[:name] %>
+  </td>
+  <td class="px-6 py-4">
+    <%= line[:quantity].to_i %>
+  </td>
+</tr>   
