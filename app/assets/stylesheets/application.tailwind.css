@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
+
 
 @layer components {
+  .btn-positive {
+    @apply rounded-lg p-2 bg-green text-light cursor-pointer font-medium hover:font-bold hover:bg-green-dark;
+  }
+
+  .btn-negative {
+    @apply rounded-lg p-2 bg-red text-light cursor-pointer font-medium hover:font-bold hover:bg-green-dark;
+  }
+
   .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+    @apply rounded-lg p-2 bg-gray text-light cursor-pointer font-medium hover:font-bold hover:bg-gray-dark;
+  }
+
+  .label {
+    @apply text-light font-bold;
   }
 }
-
-*/
