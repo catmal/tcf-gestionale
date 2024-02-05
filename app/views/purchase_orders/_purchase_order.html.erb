@@ -1,0 +1,81 @@
+<div id="<%= dom_id purchase_order %>">
+  <% if action_name == "show" %>
+    <div class="flex justify-between items-center">
+
+      <h1 class="p-4 font-bold text-4xl text-gray-dark">Ordine Fornitore
+        <%= purchase_order.number %></h1>
+      <div class="flex gap-2">
+
+        <%= link_to "Modifica",
+        edit_purchase_order_path(id: purchase_order.id),
+        class: "rounded-lg p-2  bg-green text-light block font-medium" %>
+      </div>
+    </div>
+    <div class="flex gap-2 text-light mt-4 p-4">
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Fornitore</strong>
+        <%= purchase_order.receivable.name %>
+      </div>
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Data</strong>
+        <%= purchase_order.date %>
+      </div>
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Numero</strong>
+        <%= purchase_order.number %>
+      </div>
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Componenti #</strong>
+        <%= number_with_delimiter(purchase_order.items.count, delimiter: ".") %>
+      </div>
+
+    </div>
+    <div class="m-4 overflow-x-auto shadow-md rounded-lg bg-blue">
+      <table class="w-full text-sm text-left text-light ">
+        <thead class="text-xs text-light bg-gray-dark uppercase ">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Codice
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Nome
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+              Qta'
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render purchase_order.order_lines %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <tr
+      data-href="<%= supplier_order_path(purchase_order.id) %>"
+      class="bg-blue-500 border-b border-blue-400"
+    >
+      <td
+        scope="row"
+        class="
+          px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100
+        "
+      >
+        <%= purchase_order.date %>
+      </td>
+      <td class="px-6 py-4">
+        <%= purchase_order.number %>
+      </td>
+      <td class="px-6 py-4">
+        <%= purchase_order.sendable.name %>
+      </td>
+      <td class="px-6 py-4">
+        <%= link_to "Mostra",
+        purchase_order_path(purchase_order.id),
+        class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>
+      </td>
+    </tr>
+  <% end %>
+</div>

@@ -18,6 +18,10 @@
   }
 
   .label {
-    @apply text-light font-bold;
+    @apply text-gray font-bold;
+  }
+
+  .text-field {
+    @apply text-gray block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full
   }
 }

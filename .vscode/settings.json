@@ -1,0 +1,16 @@
+{
+    "cSpell.languageSettings": [],
+    // If not specified searches for 'rubocop' executable available on PATH (default and recommended)
+    "ruby.rubocop.executePath": "/Users/mirco/.asdf/shims/",
+    "ruby.rubocop.configFilePath": "/Users/mirco/Webapps/gestionale/.rubocop.yml",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveTimeout": 5000,
+    "ruby.format": "rubocop",
+    "gitlens.proxy": {},
+    "todohighlight.keywords": [],
+    "editor.fontLigatures": false,
+    "editor.codeActionsOnSave": {},
+    "[erb]": {
+        "editor.defaultFormatter": "elia.erb-formatter"
+    },
+}

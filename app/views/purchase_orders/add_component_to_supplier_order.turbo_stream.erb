@@ -1,0 +1,33 @@
+<% if @updated %>
+  <%= turbo_stream.replace @purchase_order_line do %>
+    <%= render partial: "order_lines/order_line",
+    locals: {
+      order_line: @purchase_order_line,
+    } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.prepend 'purchase_order_lines' do %>
+    <%= render partial: "order_lines/order_line",
+    locals: {
+      order_line: @purchase_order_line,
+    } %>
+  <% end %>
+<% end %>
+<%= turbo_stream.update @sales_order_line do %>
+  <%= render partial: "purchase_orders/supplier_component_buttons",
+  locals: {
+    line: @sales_order_line,
+  } %>
+<% end %>
+
+<% if notice %>
+  <%= turbo_stream.append 'notifications' do %>
+    <%= render "layouts/notice" %>
+  <% end %>
+<% end %>
+
+<% if alert %>
+  <%= turbo_stream.append 'notifications' do %>
+    <%= render "layouts/alert" %>
+  <% end %>
+<% end %>

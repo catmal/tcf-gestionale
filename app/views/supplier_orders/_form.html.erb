@@ -9,28 +9,46 @@
       </ul>
     </div>
   <% end %>
-  <div class="grid grid-cols-3 gap-4 bg-gray-dark p-4 rounded-lg my-4">
-    <div>
-      <%= form.label "Data", class: "label" %>
-      <%= form.input :date, label: false, as: :date, html5: true, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" }  %>
-    </div>
-
-    <div>
-      <%= form.label :"Fornitore", class: "label" %>
-      <%= form.input :supplier_id, collection: @suppliers, label: false, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" }  %>
-    </div>
-    <div>
-      <%= form.label "Distinta", class: "label" %>
-      <br>
-      <p , class='btn-primary mt-2'><%= @bill_of_material.number %></p>
-    </div>
-    <div>
-      <%= form.label "Macchina", class: "label" %>
-      <%= form.input :machine, label: false, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" } %>
+  <div class="bg-gray-dark p-4 rounded-lg my-4">
+    <div class="grid grid-cols-3 gap-4">
+      <%= form.input :bill_of_material_id, label: false, :as => :hidden %>
+      <% if @supplier_order.supplier.blank? %>
+        <div>
+          <%= form.label :"Fornitore", class: "label" %>
+          <%= form.input :supplier_id, collection: @suppliers, label: false, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" }  %>
+        </div>
+      <% else %>
+        <div>
+          <%= form.label :"Fornitore", class: "label" %>
+          <%= form.input :supplier_id, disabled: true, collection: @suppliers, label: false, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" }  %>
+        </div>
+        <div>
+          <%= form.label "Data", class: "label" %>
+          <%= form.input :date, label: false, as: :date, html5: true, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" }  %>
+        </div>
+        <div>
+          <%= form.label "Numero", class: "label" %>
+          <%= form.input :number, label: false, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" }  %>
+        </div>
+        <div>
+          <%= form.label "Distinta", class: "label" %>
+          <br>
+          <p class='btn-primary mt-2'><%=  @supplier_order.bill_of_material.number %></p>
+        </div>
+        <div>
+          <%= form.label "Macchina", class: "label" %>
+          <%= form.input :machine, label: false, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" } %>
+        </div>
+        <div>
+          <%= form.label "Macchina", class: "label" %>
+          <%= form.input :machine, label: false, input_html: { class: "block shadow rounded-md border border-gray outline-none px-3 py-2 mt-2 w-full" } %>
+        </div>
+      <% end %>
     </div>
     <div class="align-middle text-right mt-8 flex gap-2 items-bottom justify-end">
-      <%= form.submit "Cancella", class: "btn-primary" %>
-      <%= form.submit "Crea ordine", class: "btn-positive" %>
+      <%= link_to "Cancella", clear_supplier_order_path(id: @supplier_order.bill_of_material.id), data: {turbo_stream: true}, class: "btn-primary" %>
+      <%= form.submit "Crea ordine", class: "btn-positive" if @supplier_order.id.blank? %>
+      <%= form.submit "Salva", class: "btn-positive" if @supplier_order.id.present? %>
     </div>
   </div>
 <% end %>

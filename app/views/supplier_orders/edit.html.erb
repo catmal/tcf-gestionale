@@ -1,8 +1,50 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing supplier order</h1>
-
+<div class="mx-auto w-full p-4">
   <%= render "form", supplier_order: @supplier_order %>
+  <div class="grid grid-cols-4 gap-4">
+    <div class="col-span-3">
+      <div class="overflow-x-auto shadow-md rounded-lg bg-blue">
+        <table class="w-full text-sm text-left text-light rounded-lg">
+          <thead class="text-xs text-light bg-gray-dark uppercase">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                Gruppo
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Codice
+              </th>
 
-  <%= link_to "Show this supplier order", @supplier_order, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to supplier orders", supplier_orders_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+              <th scope="col" class="px-6 py-3 text-center">
+                Qta'
+              </th>
+              <th scope="col" class="px-6 py-3 text-center">
+                Ord
+              </th>
+              <th scope="col" class="px-6 py-3 text-center">
+                Da ord
+              </th>
+              <th scope="col" class="px-6 py-3 text-center">
+                Allegati
+              </th>
+              <th scope="col" class="px-6 py-3 text-center">
+              </th>
+            </tr>
+          </thead>
+          <tbody id="supplier_order_lines" is="turbo-stream">
+            <%= render @supplier_order.supplier_order_lines %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="overflow-y-scroll h-screen">
+      <% @component_buttons.each do | line | %>
+
+        <%= render partial: "supplier_orders/supplier_component_buttons",
+        locals: {
+          line: line,
+        } %>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to "Show this supplier order", @supplier_order, class: "btn-primary" %>
+  <%= link_to "Back to supplier orders", supplier_orders_path, class: "btn-primary" %>
 </div>

@@ -1,30 +1,40 @@
-
 <% if action_name == "show" %>
-<div class="flex gap-2">
-<div class="bg-gray-dark rounded p-2 text-light">
-  <p class="font-bold">Nome</p>
-  <%= supplier.name %>
-</div>
-<div class="bg-gray-dark rounded p-2 text-light">
-  <p class="font-bold">Email</p>
-  <%= supplier.email %>
-</div>
-<%= link_to "Modifica", edit_supplier_path(@supplier), class: "btn-positive inline-block" %>
-
-</div>
-
+  <div class="flex gap-2 justify-between">
+    <div class="flex gap-2">
+      <div class="bg-gray-dark rounded p-2 text-light">
+        <p class="font-bold">Nome</p>
+        <%= supplier.name %>
+      </div>
+      <div class="bg-gray-dark rounded p-2 text-light">
+        <p class="font-bold">Email</p>
+        <%= supplier.email %>
+      </div>
+    </div>
+    <%= link_to "Modifica",
+    edit_supplier_path(@supplier),
+    class: "btn-positive inline-block" %>
+  </div>
 
 <% else %>
-  <tr data-href="<%=supplier_path(supplier.id) %>" class="bg-blue-500 border-b border-blue-400">
-    <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+  <tr
+    data-href="<%=supplier_path(supplier.id) %>"
+    class="bg-blue border-b border-gray"
+  >
+    <th
+      scope="row"
+      class="
+        px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100
+      "
+    >
       <%= supplier.name %>
     </th>
     <td class="px-6 py-4">
       <%= supplier.email %>
     </td>
-      <td class="px-6 py-4">
-      <%= link_to "Mostra", supplier_path(supplier.id), class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>              
+    <td class="px-6 py-4">
+      <%= link_to "Mostra",
+      supplier_path(supplier.id),
+      class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>
     </td>
   </tr>
 <% end %>
-

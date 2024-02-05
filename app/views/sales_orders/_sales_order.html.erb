@@ -1,0 +1,90 @@
+<div id="<%= dom_id sales_order %>">
+  <% if action_name == "show" %>
+    <div class="flex justify-between items-center">
+      <h1 class="p-4 font-bold text-4xl text-gray-dark">Ordine Cliente
+        <%= sales_order.number %></h1>
+      <div class="flex gap-2">
+        <%= if sales_order.sourceable.present?
+          link_to "Nuovo ordine fornitore",
+          new_purchase_order_path(sales_order_id: sales_order.id),
+          class: "btn-positive"
+        end %>
+        <%= link_to "Modifica",
+        edit_order_path(id: sales_order.id),
+        class: "rounded-lg p-2  bg-green text-light block font-medium" %>
+      </div>
+    </div>
+    <div class="flex gap-2 text-light mt-4 p-4">
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Cliente</strong>
+        <%= sales_order.sendable.name %>
+      </div>
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Data</strong>
+        <%= sales_order.date %>
+      </div>
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Numero</strong>
+        <%= sales_order.number %>
+      </div>
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Componenti #</strong>
+        <%= number_with_delimiter(sales_order.items.count, delimiter: ".") %>
+      </div>
+
+    </div>
+    <div class="m-4 overflow-x-auto shadow-md rounded-lg bg-blue">
+
+      <table class="w-full text-sm text-left text-light ">
+        <thead class="text-xs text-light bg-gray-dark uppercase ">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Codice
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Nome
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+              Qta'
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render sales_order.sales_order_lines %>
+        </tbody>
+      </table>
+    </div>
+    <%= button_to "Elimina",
+    order_path(sales_order),
+    method: :delete,
+    class: "btn-negative" %>
+
+  <% else %>
+    <tr
+      data-href="<%= supplier_order_path(sales_order.id) %>"
+      class="bg-blue-500 border-b border-blue-400"
+    >
+      <td
+        scope="row"
+        class="
+          px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100
+        "
+      >
+        <%= sales_order.date %>
+      </td>
+      <td class="px-6 py-4">
+        <%= sales_order.number %>
+      </td>
+      <td class="px-6 py-4">
+        <%= sales_order.sendable.name %>
+      </td>
+      <td class="px-6 py-4">
+        <%= link_to "Mostra",
+        sales_order_path(sales_order.id),
+        class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>
+      </td>
+    </tr>
+  <% end %>
+</div>

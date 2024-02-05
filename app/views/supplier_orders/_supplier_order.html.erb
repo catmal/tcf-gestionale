@@ -1,8 +1,16 @@
 <div id="<%= dom_id supplier_order %>">
-<div class="flex justify-between items-center">
-  <h1 class="p-4 font-bold text-4xl text-gray-dark">Ordine Fornitore <%= supplier_order.number %></h1>
-  <%= link_to "Invia email", send_supplier_order_email_path(id: supplier_order.id), class: "rounded-lg p-2 m-4 bg-green text-light block font-medium"%>
-</div>
+  <div class="flex justify-between items-center">
+    <h1 class="p-4 font-bold text-4xl text-gray-dark">Ordine Fornitore
+      <%= supplier_order.number %></h1>
+    <div class="flex gap-2">
+      <%= link_to "Modifica",
+      edit_supplier_order_path(id: supplier_order.id),
+      class: "rounded-lg p-2  bg-green text-light block font-medium" %>
+      <%= link_to "Invia email",
+      send_supplier_order_email_path(id: supplier_order.id),
+      class: "rounded-lg p-2  bg-green text-light block font-medium" %>
+    </div>
+  </div>
   <div class="flex gap-2 text-light mt-4 p-4">
     <div class="px-4 bg-gray-dark p-2 rounded">
       <strong class="block font-bold mb-1">Fornitore</strong>
@@ -22,12 +30,17 @@
     </div>
     <div class="px-4 bg-gray-dark p-2 rounded">
       <strong class="block font-bold mb-1">Quantita' #</strong>
-      <%= number_with_delimiter(supplier_order.supplier_order_lines.sum(&:quantity).to_i, delimiter: ".") %>
+      <%= number_with_delimiter(
+        supplier_order.supplier_order_lines.sum(:quantity).to_i,
+        delimiter: ".",
+      ) %>
     </div>
   </div>
   <% if action_name != "show" %>
     <%= link_to "Show this supplier order", supplier_order, class: "btn-primary" %>
-    <%= link_to "Edit this supplier order", edit_supplier_order_path(supplier_order), class: "btn-positive" %>
+    <%= link_to "Edit this supplier order",
+    edit_supplier_order_path(supplier_order),
+    class: "btn-positive" %>
     <hr class="mt-6">
   <% end %>
 </div>

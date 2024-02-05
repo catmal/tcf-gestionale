@@ -1,7 +1,16 @@
-
-<% bill_of_material_lines.each do | line | %>
-  <div class="btn-positive <%= 'bg-gray' if line.quantity.zero? %> items-center flex justify-between mb-2 ">
-    <%= link_to line.component.name, add_component_to_supplier_order_path(line: line.id), data: {turbo_stream: true} %>
-    <p class="text-center font-bold text-light bg-gray-dark py-2 px-4  ml-2 rounded-lg"><%= line.quantity.to_i %></p>
+<% @component_buttons.each do | line | %>
+  <div class="btn-positive <%= 'bg-gray' if line.quantity.to_i.zero? %> mb-2 ">
+    <div class="flex items-center justify-between">
+      <%= link_to line.component.code,
+      add_component_to_supplier_order_path(line: line["id"], id: @order.id),
+      data: {
+        turbo_stream: true,
+      } %>
+      <p
+        class="
+          text-center font-bold text-light bg-gray-dark py-2 px-4 ml-2 rounded-lg
+        "
+      ><%= line.quantity.to_i %></p>
+    </div>
   </div>
 <% end %>

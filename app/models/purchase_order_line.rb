@@ -1,0 +1,2 @@
+class PurchaseOrderLine < OrderLine
+end

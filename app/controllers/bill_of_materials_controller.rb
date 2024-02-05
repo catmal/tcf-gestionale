@@ -45,7 +45,7 @@ class BillOfMaterialsController < ApplicationController
 
   # GET /bill_of_materials/1 or /bill_of_materials/1.json
   def show
-    @supplier_orders = @bill_of_material.supplier_orders
+    @supplier_orders = @bill_of_material.supplier_orders.includes([:supplier])
   end
 
   # GET /bill_of_materials/new
@@ -69,7 +69,6 @@ class BillOfMaterialsController < ApplicationController
       group = { code: group_code, type: 'Group' }
       session[:groups].push(group) if group_code.present? && name.present? && !session[:groups].include?(group)
       session[:bill_of_material_lines].push(bill_of_material_line) if name.present?
-
     end
     respond_to do |format|
       if session[:bill_of_material_lines]
@@ -87,12 +86,12 @@ class BillOfMaterialsController < ApplicationController
   def import_purchase_order
     @bill_of_material = BillOfMaterial.find(params[:bill_of_material_id])
 
-    PurchaseOrder::GroupsScraper.new(@bill_of_material.purchase_order_url, @bill_of_material.groups.uniq).call
-    PurchaseOrder::FileScraper.new(@bill_of_material.purchase_order_url, 'pdf').call
-    PurchaseOrder::FileScraper.new(@bill_of_material.purchase_order_url, 'dxf').call
+    Ima::GroupsScraper.new(@bill_of_material.purchase_order_url, @bill_of_material.groups.uniq).call
+    Ima::FileScraper.new(@bill_of_material.purchase_order_url, 'pdf').call
+    Ima::FileScraper.new(@bill_of_material.purchase_order_url, 'dxf').call
     respond_to do |format|
       format.html do
-        redirect_to bill_of_material_path(@bill_of_material), notice: 'Bill of material was successfully created.'
+        redirect_to bill_of_material_path(@bill_of_material), notice: 'Ordine di acquisto importato con successo!'
       end
     end
   end
@@ -120,6 +119,10 @@ class BillOfMaterialsController < ApplicationController
           @bill_of_material.bill_of_material_lines.create!(quantity: line[:component_quantity], component_id: item.id, group_id: group.id,
                                                            bill_of_material: @bill_of_material, group:)
         end
+        # @bill_of_material.create_sales_order
+        session[:bill_of_material_lines] = []
+        session[:groups] = []
+        session[:bill_of_material] = {}
         format.html do
           redirect_to bill_of_material_url(@bill_of_material), notice: 'Distinta salvata con successo!'
         end

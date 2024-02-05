@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[show edit update destroy]
-
+  include Filterable
   # GET /items
   def index
-    @items = Item.all
+    @items = filter!(Item)
     respond_to do |format|
       format.html
       format.csv do

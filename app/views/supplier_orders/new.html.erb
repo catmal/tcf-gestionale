@@ -4,33 +4,45 @@
   <div class="">
     <div class="grid grid-cols-3 gap-2 h-screen">
       <div class="col-span-2 sticky top-0 overflow-y-scroll">
-        <% if session["supplier_order_#{@bill_of_material.id}_supplier_order_lines"].present? && session["supplier_order_#{@bill_of_material.id}_supplier_order_lines"].count > 0 %>
+        <% if @supplier_order.supplier_order_lines.count > 0 %>
           <div class="overflow-x-auto shadow-md rounded-lg bg-blue">
-            <table class="w-full text-sm text-left  text-light rounded-lg">
-              <thead class="text-xs text-light bg-gray-dark uppercase  ">
-                  <tr>
-                    <th scope="col" class="px-6 py-3">
-                          Codice
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Nome
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Quantita'
-                      </th>
-                  </tr>
+            <table class="w-full text-sm text-left text-light rounded-lg">
+              <thead class="text-xs text-light bg-gray-dark uppercase ">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Codice
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Nome
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-center">
+                    Qta'
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-center">
+                    Ord
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-center">
+                    Da ord
+                  </th>
+                </tr>
               </thead>
               <tbody id="supplier_order_lines" is="turbo-frame">
-                  <%= render partial: 'supplier_orders/supplier_order_lines', lines: session["supplier_order_#{@bill_of_material.id}_supplier_order_lines"]  %>
+                <%= render partial: "supplier_orders/supplier_order_lines",
+                lines: @supplier_order.supplier_order_lines %>
               </tbody>
             </table>
           </div>
         <% else %>
-          <p>L'ordine e' ancora vuoto. Clicca sui componenti a destra per aggiungerli.</p>
+          <p>L'ordine e' ancora vuoto. Clicca sui componenti a destra per
+            aggiungerli.</p>
         <% end %>
       </div>
       <div id="component_buttons" is="turbo-frame" class="overflow-y-scroll h-screen">
-        <%= render partial: 'supplier_orders/supplier_component_buttons', locals: {bill_of_material_lines: @bill_of_material_lines } %>
+        <%= render partial: "supplier_orders/supplier_component_buttons",
+        locals: {
+          bill_of_material_lines:
+            @supplier_order.bill_of_material.bill_of_material_lines,
+        } %>
       </div>
     </div>
   </div>

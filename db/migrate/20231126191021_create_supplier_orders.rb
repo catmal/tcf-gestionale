@@ -4,6 +4,7 @@ class CreateSupplierOrders < ActiveRecord::Migration[7.1]
       t.string :number
       t.references :supplier, null: false, foreign_key: true
       t.date :date
+      t.date :delivery_date
       t.references :bill_of_material, null: false, foreign_key: true
       t.string :machine
 

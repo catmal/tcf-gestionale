@@ -1,4 +1,4 @@
-module PurchaseOrder
+module Ima
   class FileScraper
     require 'mechanize'
 
@@ -11,11 +11,9 @@ module PurchaseOrder
       client = Mechanize.new
       page = client.get(@url)
       page.links.select do |link|
-        addable = link.href.include?('https://myimasrm.ima.it/iungo')
+        # addable = link.href.include?('https://myimasrm.ima.it/iungo')
         correct_type = link.href.include?(@file_type)
-        puts link.href if addable && correct_type
         splitted_count = link.href.split('_').count
-        puts splitted_count if correct_type
         if splitted_count == 4 && correct_type
           string_end = "#{link.href.split('_')[2]}_#{link.href.split('_')[3]}"
           code = string_end.split('.')[0].upcase
@@ -23,9 +21,7 @@ module PurchaseOrder
           string_end = link.href.split('_')[2]
           code = string_end.split('.')[0].upcase
         end
-        puts code
         item = Item.find_by(code:)
-        puts item.code if item.present?
         item.update("#{@file_type}_url": link.href) if item.present?
       end
     end

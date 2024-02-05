@@ -28,13 +28,8 @@ module.exports = {
         DEFAULT: '#fb3640',
       }
 
-    },
-    extend: {
+    }
 
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
-    },
   },
   plugins: [
     require('@tailwindcss/forms'),

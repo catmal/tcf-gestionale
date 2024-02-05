@@ -1,0 +1,8 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Editing order line</h1>
+
+  <%= render "form", order_line: @order_line %>
+
+  <%= link_to "Show this order line", @order_line, class: "btn-primary" %>
+  <%= link_to "Back to order lines", order_lines_path, class: "btn-primary" %>
+</div>

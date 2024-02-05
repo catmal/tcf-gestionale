@@ -1,35 +1,37 @@
-  <%= render @supplier_order %>
-    <div class="m-4 overflow-x-auto shadow-md rounded-lg bg-blue">
-      <table class="w-full text-sm text-left  text-light ">
-        <thead class="text-xs text-light bg-gray-dark uppercase  ">
-            <tr>
-              <th scope="col" class="px-6 py-3">
-                    Gruppo
-                </th>
-                 <th scope="col" class="px-6 py-3">
-                    Codice
-                </th>
-                 <th scope="col" class="px-6 py-3">
-                    Nome
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Quantita'
-                </th>
-                 <th scope="col" class="px-6 py-3">
-                    Files
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-          <% @supplier_order.supplier_order_lines.each do | line | %>
-            <%= render 'supplier_order_lines/supplier_order_line', line: %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <div class="flex gap-2 float-right p-4">
-    <%= button_to "Distruggi", supplier_order_path(@supplier_order), method: :delete, class: "btn-negative" %>
-    <%= link_to "Indietro", supplier_orders_path, class: "btn-primary" %>
-  </div>
+<%= render @supplier_order %>
+<div class="m-4 overflow-x-auto shadow-md rounded-lg bg-blue">
+  <table class="w-full text-sm text-left text-light ">
+    <thead class="text-xs text-light bg-gray-dark uppercase ">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          Gruppo
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Codice
+        </th>
+        <th scope="col" class="px-6 py-3 text-center">
+          Qta'
+        </th>
+        <th scope="col" class="px-6 py-3 text-center">
+          Ord
+        </th>
+        <th scope="col" class="px-6 py-3 text-center">
+          Da Ord
+        </th>
+        <th scope="col" class="px-6 py-3 text-center">
+          Allegati
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @supplier_order.supplier_order_lines %>
+    </tbody>
+  </table>
 </div>
-
+<div class="flex gap-2 float-right p-4">
+  <%= button_to "Distruggi",
+  supplier_order_path(@supplier_order),
+  method: :delete,
+  class: "btn-negative" %>
+  <%= link_to "Indietro", supplier_orders_path, class: "btn-primary" %>
+</div>

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_line: one
+  ordered: 9.99
+  to_order: 9.99
+  total: 9.99
+
+two:
+  order_line: two
+  ordered: 9.99
+  to_order: 9.99
+  total: 9.99

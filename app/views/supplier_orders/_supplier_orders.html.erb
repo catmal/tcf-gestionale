@@ -1,35 +1,49 @@
-<table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
-      <thead class="text-xs text-light uppercase bg-gray-dark dark:text-white">
-          <tr>
-              <th scope="col" class="px-6 py-3">
-                Data
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Numero
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Fornitore
-              </th>
-              <th scope="col" class="px-6 py-3">
-              </th>
-          </tr>
-      </thead>
-      <tbody class="bg-blue text-light">
-        <% supplier_orders.each do | supplier_order | %>
-          <tr data-href="<%= supplier_order_path(supplier_order.id) %>" class="bg-blue-500 border-b border-blue-400">
-            <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                <%= supplier_order.date %>
-            </td>
-            <td class="px-6 py-4">
-              <%= supplier_order.number %>
-            </td>
-             <td class="px-6 py-4">
-              <%= supplier_order.supplier.name %>
-            </td>
-            <td class="px-6 py-4">
-              <%= link_to "Mostra", supplier_order_path(supplier_order.id), class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>              
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<table
+  class="
+    w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100
+  "
+>
+  <thead class="text-xs text-light uppercase bg-gray-dark dark:text-white">
+    <tr>
+      <th scope="col" class="px-6 py-3">
+        Data
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Numero
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Fornitore
+      </th>
+      <th scope="col" class="px-6 py-3">
+      </th>
+    </tr>
+  </thead>
+  <tbody class="bg-blue text-light">
+    <% supplier_orders.each do | supplier_order | %>
+      <tr
+        data-href="<%= supplier_order_path(supplier_order.id) %>"
+        class="bg-blue-500 border-b border-blue-400"
+      >
+        <td
+          scope="row"
+          class="
+            px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100
+          "
+        >
+          <%= supplier_order.date %>
+        </td>
+        <td class="px-6 py-4">
+          <%= supplier_order.number %>
+        </td>
+        <td class="px-6 py-4">
+          <%= supplier_order.supplier.name %>
+        </td>
+        <td class="px-6 py-4">
+          <%= link_to "Mostra",
+          supplier_order_path(supplier_order.id),
+          class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

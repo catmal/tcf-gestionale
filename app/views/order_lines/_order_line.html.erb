@@ -1,0 +1,27 @@
+<tr id="<%= dom_id order_line %>" class="bg-blue text-light">
+
+  <td class="px-6 py-4 font-medium whitespace-nowrap">
+    <%= order_line.item.code %>
+  </td>
+  <td class="px-6 py-4 font-medium whitespace-nowrap">
+    <%= order_line.item.name %>
+  </td>
+  <td class="px-6 py-4 font-medium whitespace-nowrap">
+    <%= order_line.quantity %>
+  </td>
+
+  <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+    <% if order_line.item.pdf_url %>
+      <%= link_to "PDF", "#{order_line.item.pdf_url}", class: "btn-positive" %>
+      <%= link_to "DXF", "#{order_line.item.dxf_url}", class: "btn-positive" %>
+    <% end %>
+  </td>
+  <td class="px-6 py-4 text-center">
+    <% if action_name == 'edit' %>
+      <%= link_to order_line_path, class: "btn-primary" do %>
+        <i class="fa-solid fa-trash bg-gray"></i>
+      <% end %>
+    <% end %>
+
+  </td>
+</tr>

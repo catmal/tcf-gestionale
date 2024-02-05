@@ -1,34 +1,43 @@
 <div class="w-full p-4">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <p
+      class="
+        py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block
+      "
+      id="notice"
+    ><%= notice %></p>
   <% end %>
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl text-gray-dark mb-4">Fornitori</h1>
-    <%= link_to "Nuovo Fornitore", new_supplier_path, class: "rounded-lg py-3 px-5 bg-gray text-light block font-medium" %>
+    <%= link_to "Nuovo Fornitore", new_supplier_path, class: "btn-positive" %>
   </div>
 
   <div id="suppliers" class="min-w-full">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-     <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
+      <table
+        class="
+          w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100
+        "
+      >
         <thead class="text-xs text-light uppercase bg-gray-dark dark:text-white">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Nome
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Email
-                </th>
-                <th scope="col" class="px-6 py-3">
-                </th>
-            </tr>
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Nome
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Email
+            </th>
+            <th scope="col" class="px-6 py-3">
+            </th>
+          </tr>
         </thead>
         <tbody class="bg-blue text-light">
-             <%= render @suppliers %>
+          <%= render @suppliers %>
 
         </tbody>
-    </table>
+      </table>
     </div>
   </div>
 </div>

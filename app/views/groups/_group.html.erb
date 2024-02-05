@@ -1,64 +1,82 @@
 <% if action_name != "show" %>
   <div id="<%= dom_id group %>">
-    <tr class="bg-blue">
+    <tr class="bg-blue border-b border-gray">
       <td scope="row" class="px-6 py-4 font-medium">
-          <%= group.code %>
-      </td>
-      <td scope="row" class="px-6 py-4 font-medium">
-          <%= group.type %>
-      </td>
-       <td scope="row" class="px-6 py-4 font-medium">
-         <%= group.name %>
-      </td>
-       <td scope="row" class="px-6 py-4 font-medium">
-      <%= group.created_at.strftime('%d-%m-%Y %H:%M') %>
-    </td>
-        <td scope="row" class="px-6 py-4 font-medium">
+        <%= group.code %>
       </td>
       <td scope="row" class="px-6 py-4 font-medium">
-        <%= link_to "Mostra", item_path(group.id), class: 'bg-gray p-2 rounded' %>
+        <p class="bg-gray rounded p-1 text-center"><%= item_type(group.type) %></p>
+      </td>
+      <td scope="row" class="px-6 py-4 font-medium">
+        <%= if group.name
+          link_to group.name, item_path(group.id), data: { turbo_frame: "_top" }
+        end %>
+        <%= link_to "N/D", item_path(group.id), data: { turbo_frame: "_top" } if !group.name %>
+
+      </td>
+      <td scope="row" class="px-6 py-4 font-medium">
+        <%= group.created_at.strftime("%d-%m-%Y %H:%M") %>
+      </td>
+      <td scope="row" class="px-6 py-4 font-medium">
+      </td>
+      <td scope="row" class="px-6 py-4 font-medium">
+        <%= link_to "Mostra",
+        item_path(group.id),
+        data: {
+          turbo_frame: "_top",
+        },
+        class: "btn-primary" %>
       </td>
     </tr>
   </div>
 <% else %>
-  <div class="bg-gray-200 p-2 rounded my-4">
-    <p class="font-bold">Gruppo</p>
-    <%= group.code %> | <%= group.name %>
-
+  <div class="bg-gray rounded-lg text-light inline-block mb-4 p-2">
+    <p class="font-bold">Codice</p>
+    <%= group.code %>
   </div>
- <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-
-  <table class="w-full text-sm text-left rounded">
-    <thead class="text-xs text-light uppercase bg-gray-dark ">
-      <tr>
-        <th scope="col" class="px-6 py-3">
-          Codice
-        </th>  
-        <th scope="col" class="px-6 py-3">
-          Nome
-        </th>  
-         <th scope="col" class="px-6 py-3">
-        </th>  
-      </tr>
-    </thead>
-    <tbody>
-      <% if group.children.count > 0 %>
-        <% group.children.each do |child| %>
-          <tr class="bg-blue text-light">
-            <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                <%= child.code %>
-            </td>
-            <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                <%= child.name %>
-            </td>
-              
-            <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-              <%= link_to "Mostra", item_path(child.id), class: 'bg-gray hover:bg-gray-dark p-2 rounded' %>
-            </td>
+  <div class="bg-gray rounded-lg text-light inline-block mb-4 p-2">
+    <p class="font-bold">Nome</p>
+    <%= group.name %>
+  </div>
+  <h2 class="font-bold my-4 text-xl text-gray-dark">
+    Componenti</h2>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rounded">
+      <thead class="text-xs text-light uppercase bg-gray-dark ">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Codice
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Nome
+          </th>
+          <th scope="col" class="px-6 py-3">
+          </th>
         </tr>
+      </thead>
+      <tbody>
+        <% if group.children.count > 0 %>
+          <% group.children.each do |child| %>
+            <tr class="bg-blue text-light">
+              <td scope="row" class="px-6 py-4 font-medium">
+                <%= child.code %>
+              </td>
+              <td scope="row" class="px-6 py-4 font-medium">
+                <%= child.name %>
+              </td>
+
+              <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                <%= link_to "Mostra",
+                item_path(child.id),
+                data: {
+                  turbo_frame: "_top",
+                },
+                class: "btn-primary" %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
   </div>
 <% end %>

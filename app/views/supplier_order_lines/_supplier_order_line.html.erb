@@ -1,20 +1,26 @@
-  <tr id="<%= line[:code] %>" is="turbo-frame" class="bg-blue text-light">
-    <th  class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-      <%= line.item.parents.first.code %>
-    </th>
-    <th  class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-      <%= line.item.code %>
-    </th>
-    <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-      <%= line.item.name %>
-    </th>
-    <td class="px-6 py-4">
-      <%= line.quantity.to_i %>
-    </td>
-    <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-      <% if line.item.pdf_url%>
-        <%= link_to "PDF", "#{line.item.pdf_url}", class: "bg-gray-dark text-light p-1 rounded" %>
-        <%= link_to "DXF", "#{line.item.dxf_url}", class: "bg-gray-dark text-light p-1 rounded" %>
+<tr id="<%= dom_id supplier_order_line %>" class="bg-blue text-light">
+  <td class="px-6 py-4 font-medium whitespace-nowrap">
+    <%= supplier_order_line.item.parents.first.code %>
+  </td>
+  <td class="px-6 py-4 font-medium whitespace-nowrap">
+    <%= supplier_order_line.item.code %>
+  </td>
+  <td class="px-6 py-4 font-medium whitespace-nowrap">
+    <%= supplier_order_line.item.name %>
+  </td>
+
+  <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+    <% if supplier_order_line.item.pdf_url %>
+      <%= link_to "PDF", "#{supplier_order_line.item.pdf_url}", class: "btn-positive" %>
+      <%= link_to "DXF", "#{supplier_order_line.item.dxf_url}", class: "btn-positive" %>
+    <% end %>
+  </td>
+  <td class="px-6 py-4 text-center">
+    <% if action_name == 'edit' %>
+      <%= link_to supplier_order_line_path, class: "btn-primary" do %>
+        <i class="fa-solid fa-trash bg-gray"></i>
       <% end %>
-    </td>
-  </tr>
+    <% end %>
+
+  </td>
+</tr>

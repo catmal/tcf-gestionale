@@ -1,0 +1,27 @@
+<%= turbo_stream.update "supplier_order_lines" do %>
+  <%= render partial: "supplier_orders/supplier_order_lines",
+  locals: {
+    supplier_order_lines:
+      session["supplier_order_#{@bill_of_material.id}_supplier_order_lines"],
+  } %>
+<% end %>
+
+<%= turbo_stream.update "component_buttons" do %>
+  <%= render partial: "supplier_orders/supplier_component_buttons",
+  locals: {
+    bill_of_material_lines:
+      session["bill_of_material_#{@bill_of_material.id}_bill_of_material_lines"],
+  } %>
+<% end %>
+
+<% if notice %>
+  <%= turbo_stream.append 'notifications' do %>
+    <%= render "layouts/notice" %>
+  <% end %>
+<% end %>
+
+<% if alert %>
+  <%= turbo_stream.append 'notifications' do %>
+    <%= render "layouts/alert" %>
+  <% end %>
+<% end %>

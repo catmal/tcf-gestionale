@@ -1,0 +1,22 @@
+<div id="<%= dom_id line %>">
+  <div
+    class="btn-positive <%= 'bg-gray' if line.order_line_quantity.to_order.to_i.zero? %> mb-2"
+  >
+    <div class="flex items-center justify-between">
+      <%= link_to line.item.code,
+      add_component_to_supplier_order_path(line: line["id"], id: @order.id),
+      data: {
+        turbo_stream: true,
+      } %>
+      <p
+        class="
+          text-center font-bold text-light bg-gray-dark py-2 px-4 ml-2 rounded-lg
+        "
+      ><%= line.order_line_quantity.to_order %></p>
+      <p><%= line.quantity %></p>
+      <p><%= line.order_line_quantity.ordered %></p>
+
+    </div>
+    <small><%= line.item.name %></small>
+  </div>
+</div>

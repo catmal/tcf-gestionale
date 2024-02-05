@@ -1,13 +1,24 @@
-
 <% session["supplier_order_#{@bill_of_material.id}_supplier_order_lines"].each do | line | %>
-<tr id="<%= line[:code] %>" is="turbo-frame" class="bg-blue text-light">
-  <td  class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+  <tr id="<%= line[:code] %>" is="turbo-frame" class="bg-blue text-light">
+    <td class="px-6 py-4 font-medium whitespace-nowrap">
       <%= line[:code] %>
-  </td>
-  <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+    </td>
+    <td
+      scope="row"
+      class="
+        px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100
+      "
+    >
       <%= line[:name] %>
-  </td>
-  <td class="px-6 py-4">
-    <%= line[:quantity] %>
-  </td>
-</tr> <% end %>
+    </td>
+    <td class="px-6 py-4 text-center">
+      <%= line[:quantity] %>
+    </td>
+    <td class="px-6 py-4 text-center">
+      <%= line[:ordered] %>
+    </td>
+    <td class="px-6 py-4 text-center">
+      <%= line[:to_order] %>
+    </td>
+  </tr>
+<% end %>

@@ -3,7 +3,7 @@
   <div class="bg-gray-dark p-4 rounded text-light mt-4">
     <p>Questi sono i componenti e i gruppi che verranno salvati. Se sono corretti come sul file excel clicca <strong>Salva</strong> per importarli nel gestionale. </p>
     <p>Se la data e' presente nella colonna <strong>Esistente</strong> significa che il componente e' gia' stato importato da una distinta precedente.</p>
-    <p>Una volta fatto questo nella prossima pagina potrai inserire il link dell'ordine di acquisto per associare i nomi dei gruppi, pdf e dxf.
+    <p>Una volta fatto questo nella prossima pagina potrai inserire il link dell'ordine di acquisto per associare i nomi dei gruppi, pdf e dxf.</p>
     
     <%= button_to "Salva", bill_of_materials_path(bill_of_material: @bill_of_material), class: "mt-4 bg-green p-2 rounded text-light" %>
   </div>
@@ -33,19 +33,18 @@
         <tbody>
           <% @bill_of_material_lines.each do | line | %>
             <tr class="bg-blue text-light">
-               <td class="px-6 py-4">
+              <td class="px-6 py-4">
                 <%= line[:code] %>
               </td>
               <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
                 <%= line[:name] %>
               </td>
               <td>
-                
                 <%= line[:existing].strftime('%d-%m-%Y %H:%M') if line[:existing].present? %>
               </td>
-               <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+              <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
                 <%= line[:group_code] %>
-              </th>
+              </td>
               <td class="px-6 py-4">
                 <%= line[:component_quantity] %>
               </td>

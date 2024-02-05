@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   require 'csv'
 
+  FILTER_PARAMS = %i[query column direction].freeze
+
   ## 1. ASSOCIATIONS / ATTRIBUTES
 
   has_and_belongs_to_many :parents,
@@ -18,7 +20,11 @@ class Item < ApplicationRecord
   ## 2. SCOPES
 
   scope :groups, -> { where(type: 'Group') }
-
+  scope :by_name, ->(query) { where('items.name ilike ?', "%#{query}%") }
+  scope :by_code, ->(query) { where('items.code ilike ?', "%#{query}%") }
+  scope :by_name_or_code, lambda { |query|
+    by_name(query).or(by_code(query))
+  }
   ## 3. CLASS METHODS
 
   def self.to_csv
@@ -39,5 +45,12 @@ class Item < ApplicationRecord
 
   def existing?(code)
     Item.find_by(code:)
+  end
+
+  def self.filter(filters)
+    column = filters['column'] || 'name'
+    Item
+      .by_name_or_code(filters['query'])
+      .order("#{column} #{filters['direction']}")
   end
 end

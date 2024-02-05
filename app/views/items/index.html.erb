@@ -1,37 +1,83 @@
 <div class="w-full p-4">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <p
+      class="
+        py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block
+      "
+      id="notice"
+    ><%= notice %></p>
   <% end %>
   <div class="flex justify-between items-center mb-4">
     <h1 class="font-bold text-gray-dark text-4xl">Articoli</h1>
+    <div class="flex">
+      <%= form_with url: items_path, method: :get, data: { controller: "search-form", search_form_target: "form", turbo_frame: "items" } do |form| %>
+        <%= form.text_field :query,
+                        placeholder: "Cerca per nome o codice",
+                        value: session.dig("item_filters", "query"),
+                        class: "border border-gray rounded p-2",
+                        autocomplete: "off",
+                        data: {
+                          action: "input->search-form#search",
+                        } %>
+      <% end %>
+    </div>
   </div>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-light rounded">
-      <thead class="text-xs text-light uppercase bg-gray-dark">
-        <tr>
-          <th scope="col" class="px-6 py-3">
-            Codice
-          </th>  
-          <th scope="col" class="px-6 py-3">
-            Tipo
-          </th> 
-          <th scope="col" class="px-6 py-3">
-            Nome
-          </th>  
+  <%= turbo_frame_tag "items", class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-light rounded">
+        <thead class="text-xs text-light uppercase bg-gray-dark">
+          <tr>
+            <th
+              id="items-code"
+              class="
+                text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer
+                relative
+              "
+            >
+              <%= sort_indicator if session.dig("item_filters", "column") == "code" %>
+              <%= build_order_link(column: "code", label: "Codice") %>
+            </th>
+            <th
+              id="items-type"
+              class="
+                text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer
+                relative
+              "
+            >
+              <%= sort_indicator if session.dig("item_filters", "column") == "type" %>
+              <%= build_order_link(column: "type", label: "Tipo") %>
+            </th>
+            <th
+              id="items-name"
+              class="
+                text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer
+                relative
+              "
+            >
+              <%= sort_indicator if session.dig("item_filters", "column") == "name" %>
+              <%= build_order_link(column: "name", label: "Nome") %>
+            </th>
+            <th
+              id="items-created-at"
+              class="
+                text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer
+                relative
+              "
+            >
+              <%= sort_indicator if session.dig("item_filters", "column") == "created_at" %>
+              <%= build_order_link(column: "created_at", label: "Creato") %>
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+              Allegati
+            </th>
             <th scope="col" class="px-6 py-3">
-            Creato
-          </th> 
-           <th scope="col" class="px-6 py-3">
-            Files
-          </th>  
-          <th scope="col" class="px-6 py-3">
-          </th>  
-
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @items %>
-      </tbody>
-    </table>
-  </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @items %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>

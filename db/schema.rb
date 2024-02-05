@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_26_191121) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_03_233953) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bill_of_material_lines", force: :cascade do |t|
     t.bigint "component_id"
     t.bigint "group_id"
-    t.decimal "quantity"
+    t.integer "quantity"
     t.bigint "bill_of_material_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,6 +30,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_26_191121) do
     t.date "date"
     t.string "number"
     t.string "purchase_order_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.string "address"
+    t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,6 +57,52 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_26_191121) do
     t.string "dxf_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_line_quantities", force: :cascade do |t|
+    t.bigint "order_line_id", null: false
+    t.decimal "ordered"
+    t.decimal "to_order"
+    t.decimal "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_line_id"], name: "index_order_line_quantities_on_order_line_id"
+  end
+
+  create_table "order_lines", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "item_id", null: false
+    t.decimal "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_order_lines_on_item_id"
+    t.index ["order_id"], name: "index_order_lines_on_order_id"
+  end
+
+  create_table "ordered_quantities", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.decimal "ordered"
+    t.string "to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_ordered_quantities_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "date"
+    t.string "number"
+    t.string "sendable_type"
+    t.bigint "sendable_id"
+    t.string "receivable_type"
+    t.bigint "receivable_id"
+    t.string "sourceable_type"
+    t.bigint "sourceable_id"
+    t.integer "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receivable_type", "receivable_id"], name: "index_orders_on_receivable"
+    t.index ["sendable_type", "sendable_id"], name: "index_orders_on_sendable"
+    t.index ["sourceable_type", "sourceable_id"], name: "index_orders_on_sourceable"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -72,6 +128,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_26_191121) do
     t.string "number"
     t.bigint "supplier_id", null: false
     t.date "date"
+    t.date "delivery_date"
     t.bigint "bill_of_material_id", null: false
     t.string "machine"
     t.datetime "created_at", null: false
@@ -92,6 +149,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_26_191121) do
   add_foreign_key "bill_of_material_lines", "items", column: "group_id"
   add_foreign_key "item_connections", "items", column: "child_id"
   add_foreign_key "item_connections", "items", column: "parent_id"
+  add_foreign_key "order_line_quantities", "order_lines"
+  add_foreign_key "order_lines", "items"
+  add_foreign_key "order_lines", "orders"
+  add_foreign_key "ordered_quantities", "orders"
   add_foreign_key "supplier_order_lines", "items"
   add_foreign_key "supplier_order_lines", "supplier_orders"
   add_foreign_key "supplier_orders", "bill_of_materials"

@@ -1,0 +1,40 @@
+<div class="mx-auto w-full p-4">
+  <%= render "form", order: @order %>
+  <div class="grid grid-cols-3 gap-4 mt-4">
+    <div class="overflow-x-auto shadow-md rounded-lg bg-blue col-span-2">
+      <table class="w-full text-sm text-left text-light ">
+        <thead class="text-xs text-light bg-gray-dark uppercase ">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Codice
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Nome
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+              Qta'
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+            </th>
+          </tr>
+        </thead>
+        <tbody id="purchase_order_lines" is="turbo-stream">
+          <%= render @order.order_lines %>
+        </tbody>
+      </table>
+    </div>
+    <div class="overflow-y-scroll h-screen">
+      <% @component_buttons.each do | line | %>
+        <div id="<%= dom_id line %>">
+          <%= render partial: "purchase_orders/supplier_component_buttons",
+          locals: {
+            line: line,
+          } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex gap-4 mt-4">
+    <%= button_to "Elimina", order_path(@order), method: :delete, class: "btn-negative" %>
+  </div>
+</div>

@@ -1,7 +1,11 @@
 <%= form_with(model: supplier, class: "contents") do |form| %>
   <% if supplier.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(supplier.errors.count, "error") %> prohibited this supplier from being saved:</h2>
+    <div
+      id="error_explanation"
+      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3"
+    >
+      <h2><%= pluralize(supplier.errors.count, "error") %>
+        prohibited this supplier from being saved:</h2>
 
       <ul>
         <% supplier.errors.each do |error| %>
@@ -13,15 +17,21 @@
 
   <div class="my-5">
     <%= form.label "Nome", class: "text-gray-dark font-bold" %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :name,
+                    class:
+                      "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label "Email", class: "text-gray-dark font-bold" %>
-    <%= form.text_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :email,
+                    class:
+                      "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
-    <%= form.submit "Salva",  class: "rounded-lg py-3 px-5 bg-green text-light inline-block font-medium cursor-pointer" %>
+    <%= form.submit "Salva",
+                class:
+                  "rounded-lg py-3 px-5 bg-green text-light inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
