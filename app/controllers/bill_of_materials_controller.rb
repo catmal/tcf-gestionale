@@ -60,9 +60,16 @@ class BillOfMaterialsController < ApplicationController
 
     for i in 2...count do
       group_code = xlsx.row(i)[0]
-      code = xlsx.row(i)[1]
-      name = xlsx.row(i)[2]
-      component_quantity = (xlsx.row(i)[3]).to_i if xlsx.row(i)[3].present?
+
+      if xlsx.row(i)[5].present?
+        code = xlsx.row(i)[2]
+        name = xlsx.row(i)[3]
+        component_quantity = (xlsx.row(i)[4]).to_i
+      else
+        code = xlsx.row(i)[1]
+        name = xlsx.row(i)[2]
+        component_quantity = (xlsx.row(i)[3]).to_i if xlsx.row(i)[3].present?
+      end
       existing = Item.find_by(code:)&.created_at
 
       bill_of_material_line = { code:, name:, component_quantity:, group_code:, type: 'Component', existing: }
@@ -73,7 +80,7 @@ class BillOfMaterialsController < ApplicationController
     respond_to do |format|
       if session[:bill_of_material_lines]
         format.html do
-          redirect_to new_bill_of_material_url, notice: 'Distinta importa con successo!'
+          redirect_to new_bill_of_material_url, notice: 'Distinta importata con successo!'
         end
 
       else
@@ -92,6 +99,7 @@ class BillOfMaterialsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to bill_of_material_path(@bill_of_material), notice: 'Ordine di acquisto importato con successo!'
+        session.destroy
       end
     end
   end
