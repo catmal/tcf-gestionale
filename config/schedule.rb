@@ -19,5 +19,5 @@
 
 # Learn more: http://github.com/javan/whenever
 every :hour do # Many shortcuts available: :hour, :day, :month, :year, :reboot
-  runner 'ActiveRecord::SessionStore::Session.where(["updated_at < ?", 1.hour.ago]).delete_all'
+  rake 'ActiveRecord::SessionStore::Session.where(["updated_at < ?", 1.hour.ago]).delete_all'
 end
