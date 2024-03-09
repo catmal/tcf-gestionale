@@ -21,3 +21,7 @@
 every :hour do # Many shortcuts available: :hour, :day, :month, :year, :reboot
   rake 'ActiveRecord::SessionStore::Session.where(["updated_at < ?", 1.hour.ago]).delete_all'
 end
+
+every :day do # Many shortcuts available: :hour, :day, :month, :year, :reboot
+  rake 'db:sessions:trim'
+end
