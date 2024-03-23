@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'groups_csv', action: :groups, controller: 'bill_of_materials'
   get 'purchase_order_groups_csv', action: :purchase_order_groups, controller: 'bill_of_materials'
   get 'add_component_to_supplier_order', action: :add_component_to_supplier_order, controller: 'purchase_orders'
-  get 'send_supplier_order_email', action: :send_email, controller: 'supplier_orders'
+  get 'send_purchase_order_email', action: :send_email, controller: 'purchase_orders'
   get 'clear_supplier_order', action: :clear_supplier_order, controller: 'supplier_orders'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
