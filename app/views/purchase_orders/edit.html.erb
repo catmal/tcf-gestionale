@@ -1,6 +1,29 @@
-<div class="mx-auto w-full p-4">
-  <%= render "form", order: @order %>
-  <div class="grid grid-cols-3 gap-4 mt-4">
+<div class="mx-auto w-full">
+  <h1 class="p-4 font-bold text-4xl text-gray-dark">Ordine Fornitore
+    <%= @order.number %></h1>
+  <div class="flex gap-2 text-light mt-4 p-4">
+    <div class="px-4 bg-gray-dark p-2 rounded">
+      <strong class="block font-bold mb-1">Fornitore</strong>
+      <%= @order.receivable.name %>
+    </div>
+    <div class="px-4 bg-gray-dark p-2 rounded">
+      <strong class="block font-bold mb-1">Data</strong>
+      <%= @order.date %>
+    </div>
+    <div class="px-4 bg-gray-dark p-2 rounded">
+      <strong class="block font-bold mb-1">Numero</strong>
+      <%= @order.number %>
+    </div>
+    <div class="px-4 bg-gray-dark p-2 rounded">
+      <strong class="block font-bold mb-1">Ordine Cliente</strong>
+      <%= @order.sourceable.number %>
+    </div>
+    <div class="px-4 bg-gray-dark p-2 rounded">
+      <strong class="block font-bold mb-1">Componenti #</strong>
+      <%= number_with_delimiter(@order.items.count, delimiter: ".") %>
+    </div>
+  </div>
+  <div class="grid grid-cols-3 gap-4 mt-4 m-4">
     <div class="overflow-x-auto shadow-md rounded-lg bg-blue col-span-2">
       <table class="w-full text-sm text-left text-light ">
         <thead class="text-xs text-light bg-gray-dark uppercase ">
@@ -12,7 +35,7 @@
               Nome
             </th>
             <th scope="col" class="px-6 py-3 text-center">
-              Qta'
+
             </th>
             <th scope="col" class="px-6 py-3 text-center">
             </th>
