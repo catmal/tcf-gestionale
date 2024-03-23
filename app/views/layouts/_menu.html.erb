@@ -8,15 +8,15 @@
       <a
         href="<%= item[:link]%>"
         class="
-          <%= ' bg-blue text-light' if (params[:controller] == item[:controller])  %> flex items-center text-xl p-2 text-light
+          <%= 'bg-blue text-light' if (params[:controller] == item[:controller])  %> flex items-center text-xl p-2 text-light
           rounded-lg hover:bg-blue hover:text-light
         "
       >
         <div class="">
           <i
             class="
-              <%= 'text-blue' if params[:controller] == item[:controller] %> <%= item[:icon]%>
-              text-lg
+              <%= 'text-light' if params[:controller] == item[:controller] %> <%= item[:icon]%>
+              text-blue group-hover:text-light
             "
           ></i>
           <span data-sidebar-target="link"><%= item[:name] %></span>
