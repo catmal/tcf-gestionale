@@ -9,9 +9,7 @@
           new_purchase_order_path(sales_order_id: sales_order.id),
           class: "btn-positive"
         end %>
-        <%= link_to "Modifica",
-        edit_order_path(id: sales_order.id),
-        class: "rounded-lg p-2  bg-green text-light block font-medium" %>
+
       </div>
     </div>
     <div class="flex gap-2 text-light mt-4 p-4">
@@ -26,6 +24,10 @@
       <div class="px-4 bg-gray-dark p-2 rounded">
         <strong class="block font-bold mb-1">Numero</strong>
         <%= sales_order.number %>
+      </div>
+      <div class="px-4 bg-gray-dark p-2 rounded">
+        <strong class="block font-bold mb-1">Distinta</strong>
+        <%= sales_order.sourceable.number %>
       </div>
       <div class="px-4 bg-gray-dark p-2 rounded">
         <strong class="block font-bold mb-1">Componenti #</strong>
@@ -64,14 +66,9 @@
   <% else %>
     <tr
       data-href="<%= supplier_order_path(sales_order.id) %>"
-      class="bg-blue-500 border-b border-blue-400"
+      class="bg-blue border-b border-blue-400 text-light"
     >
-      <td
-        scope="row"
-        class="
-          px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100
-        "
-      >
+      <td scope="row" class=" px-6 py-4 font-medium whitespace-nowrap ">
         <%= sales_order.date %>
       </td>
       <td class="px-6 py-4">
@@ -80,10 +77,8 @@
       <td class="px-6 py-4">
         <%= sales_order.sendable.name %>
       </td>
-      <td class="px-6 py-4">
-        <%= link_to "Mostra",
-        sales_order_path(sales_order.id),
-        class: "bg-gray hover:bg-gray-dark float-right text-white rounded p-2" %>
+      <td class="px-6 py-4 text-right">
+        <%= link_to "Mostra", sales_order_path(sales_order.id), class: "btn-primary" %>
       </td>
     </tr>
   <% end %>
