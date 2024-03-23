@@ -1,18 +1,18 @@
 <ul
   data-sidebar-menu="menu"
   data-active="Suggestions"
-  class="mt-4 flex flex-col overflow-hidden space-y-2"
+  class="mt-4 flex flex-col overflow-hidden"
 >
   <% Menu::ITEMS.each do |item| %>
-    <li>
+    <li class="group mt-2">
       <a
         href="<%= item[:link]%>"
         class="
           <%= 'bg-blue text-light' if (params[:controller] == item[:controller])  %> flex items-center text-xl p-2 text-light
-          rounded-lg hover:bg-blue hover:text-light
+          rounded-lg hover:bg-blue group-hover:text-light
         "
       >
-        <div class="">
+        <div>
           <i
             class="
               <%= 'text-light' if params[:controller] == item[:controller] %> <%= item[:icon]%>
@@ -21,6 +21,7 @@
           ></i>
           <span data-sidebar-target="link"><%= item[:name] %></span>
         </div>
+
       </a>
     </li>
   <% end %>
