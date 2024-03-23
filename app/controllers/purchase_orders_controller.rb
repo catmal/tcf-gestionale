@@ -1,5 +1,5 @@
 class PurchaseOrdersController < OrdersController
-  before_action :set_order, only: %i[show edit update destroy add_component_to_supplier_order]
+  before_action :set_order, only: %i[show edit update destroy add_component_to_supplier_order send_email]
 
   # GET /orders
   def index
@@ -61,6 +61,11 @@ class PurchaseOrdersController < OrdersController
   def destroy
     @order.destroy!
     redirect_to orders_url, notice: 'Order was successfully destroyed.', status: :see_other
+  end
+
+  def send_email
+    PurchaseOrderMailer.with(purchase_order: @order).new_purchase_order_email.deliver_now
+    redirect_to @order, notice: 'Email inviata al fornitore con successo!'
   end
 
   private
