@@ -55,10 +55,10 @@
       </div>
     <% end %>
   </div>
-  <div class="inline">
+  <div class="mt-4">
     <%= form.submit "Salva", class: "btn-positive" if action_name == "edit" %>
     <%= form.submit "Crea Ordine", class: "btn-positive" if action_name == "new" %>
-    <%= link_to "Cancella", orders_path, class: "btn-primary" %>
+    <%= link_to "Cancella", purchase_orders_path, class: "btn-primary" %>
 
   </div>
 <% end %>
