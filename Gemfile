@@ -50,6 +50,7 @@ gem 'roo'
 # gem "image_processing", "~> 1.2"
 gem 'auto_increment'
 gem 'dxf_io'
+gem 'font-awesome-sass', '~> 6.4.2'
 gem 'mechanize'
 gem 'simple_form'
 gem 'watir'
