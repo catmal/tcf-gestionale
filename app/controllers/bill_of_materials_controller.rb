@@ -127,7 +127,7 @@ class BillOfMaterialsController < ApplicationController
           @bill_of_material.bill_of_material_lines.create!(quantity: line[:component_quantity], component_id: item.id, group_id: group.id,
                                                            bill_of_material: @bill_of_material, group:)
         end
-        # @bill_of_material.create_sales_order
+        @bill_of_material.create_sales_order
         session[:bill_of_material_lines] = []
         session[:groups] = []
         session[:bill_of_material] = {}
