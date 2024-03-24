@@ -6,16 +6,10 @@
   <td class="px-6 py-4 font-medium whitespace-nowrap">
     <%= sales_order_line.item.name %>
   </td>
-  <td class="px-6 py-4 font-medium whitespace-nowrap">
-    <%= sales_order_line.order_line_quantity.total %>
+  <td class="px-6 py-4 font-medium whitespace-nowrap text-center">
+    <%= sales_order_line.quantity.to_i %>
   </td>
 
-  <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-    <% if sales_order_line.item.pdf_url %>
-      <%= link_to "PDF", "#{sales_order_line.item.pdf_url}", class: "btn-positive" %>
-      <%= link_to "DXF", "#{sales_order_line.item.dxf_url}", class: "btn-positive" %>
-    <% end %>
-  </td>
   <td class="px-6 py-4 text-center">
     <% if action_name == 'edit' %>
       <%= link_to order_line_path, class: "btn-primary" do %>
