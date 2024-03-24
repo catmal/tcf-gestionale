@@ -26,11 +26,8 @@ class PurchaseOrdersController < OrdersController
   def add_component_to_supplier_order
     @component_buttons = @order.sourceable.order_lines
     @sales_order_line = @component_buttons.find(params[:line])
-    existing = @order.order_lines.find_by(item_id: @sales_order_line.item_id)
 
-    @purchase_order_line = @order.add_component_to_order(@sales_order_line, existing)
-    @updated = false
-    @updated = true if existing.present?
+    @purchase_order_line = @order.add_component_to_order(@sales_order_line)
 
     @purchase_order_line
   end
