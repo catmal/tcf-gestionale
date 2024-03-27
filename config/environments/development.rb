@@ -90,10 +90,10 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    address: 'smtp-relay.brevo.com',
+    address: ENV.fetch('BREVO_ADDRESS', nil),
     port: 587,
-    user_name: 'mirco.cattabriga@gmail.com',
-    password: 'QOXk1Kxd9cENJmGU',
+    user_name: ENV.fetch('BREVO_USER_NAME', nil),
+    password: ENV.fetch('BREVO_PASSWORD', nil),
     authentication: 'login'
   }
 end
